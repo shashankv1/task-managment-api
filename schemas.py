@@ -1,50 +1,25 @@
-from pydantic import BaseModel, EmailStr
-from typing import Optional, List
-from datetime import datetime
-from models import TaskStatus
+from pydantic import BaseModel
 
-# User schemas
-class UserBase(BaseModel):
-    email: EmailStr
+class UserCreate(BaseModel):
     username: str
-
-class UserCreate(UserBase):
     password: str
 
-class UserResponse(UserBase):
+class UserResponse(BaseModel):
     id: int
-    is_active: bool
-    created_at: datetime
+    username: str
 
     class Config:
         orm_mode = True
 
-# Token schemas
-class Token(BaseModel):
-    access_token: str
-    token_type: str
-
-class TokenData(BaseModel):
-    email: Optional[str] = None
-
-# Task schemas
-class TaskBase(BaseModel):
+class TaskCreate(BaseModel):
     title: str
-    description: Optional[str] = None
-    status: TaskStatus = TaskStatus.PENDING
+    description: str
 
-class TaskCreate(TaskBase):
-    pass
-
-class TaskUpdate(BaseModel):
-    title: Optional[str] = None
-    description: Optional[str] = None
-    status: Optional[TaskStatus] = None
-
-class Task(TaskBase):
+class TaskResponse(BaseModel):
     id: int
-    created_at: datetime
-    updated_at: Optional[datetime] = None
+    title: str
+    description: str
+    status: str
     owner_id: int
 
     class Config:
