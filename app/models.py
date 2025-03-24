@@ -1,6 +1,12 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Enum
 from sqlalchemy.orm import relationship
-from database import Base
+from db import Base
+import enum
+
+class TaskStatus(str, enum.Enum):
+    pending = "pending"
+    in_progress = "in_progress"
+    completed = "completed"
 
 class User(Base):
     __tablename__ = "users"
@@ -16,8 +22,8 @@ class Task(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, index=True)
-    description = Column(String)
-    status = Column(String, default="pending")
+    description = Column(String, nullable=True)
+    status = Column(Enum(TaskStatus), default=TaskStatus.pending)
     owner_id = Column(Integer, ForeignKey("users.id"))
 
     owner = relationship("User", back_populates="tasks")

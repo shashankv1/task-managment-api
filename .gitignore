@@ -1,12 +1,7 @@
-# Virtual environment
-myenv/
-venv/
-
-# Python cache files
-__pycache__/
-*.py[cod]
-
-# Environment variables and secrets
-.env
-*.env
-
+/myvenv
+/app/__pycache__
+/app/routes/__pycache__
+/__pycache__
+/db_env
+/.vscode
+/.idea
