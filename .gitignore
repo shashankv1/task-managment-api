@@ -1,0 +1,7 @@
+/myvenv
+/app/__pycache__
+/app/routes/__pycache__
+/__pycache__
+/db_env
+/.vscode
+/.idea
